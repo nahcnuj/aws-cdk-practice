@@ -22,3 +22,10 @@ $ npm i -g aws-cdk
 $ cdk --version
 2.50.0 (build 4c11af6)
 ```
+
+## New Project
+
+```
+$ mkdir infra && cd $_
+$ cdk init sample-app --language typescript
+```
