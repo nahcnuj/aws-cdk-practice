@@ -15,7 +15,7 @@ $ aws configure sso --no-browser
 $ # aws sso login --no-browser
 
 $ node -v
-v18.12.1
+v16.18.1
 $ npm -v
 8.19.2
 
