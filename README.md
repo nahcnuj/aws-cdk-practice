@@ -124,3 +124,5 @@ arn:aws:cloudformation:ap-northeast-1:994159167629:stack/InfraStack/a30b1d10-647
 
 ✨  Total time: 105.19s
 ```
+
+Create `lambda/hello.js` (in `infra` directory)
