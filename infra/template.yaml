@@ -1,56 +1,8 @@
 Resources:
-  InfraQueue969BB8E7:
-    Type: AWS::SQS::Queue
-    Properties:
-      VisibilityTimeout: 300
-    UpdateReplacePolicy: Delete
-    DeletionPolicy: Delete
-    Metadata:
-      aws:cdk:path: InfraStack/InfraQueue/Resource
-  InfraQueuePolicyE88EDBDB:
-    Type: AWS::SQS::QueuePolicy
-    Properties:
-      PolicyDocument:
-        Statement:
-          - Action: sqs:SendMessage
-            Condition:
-              ArnEquals:
-                aws:SourceArn:
-                  Ref: InfraTopic44770A4E
-            Effect: Allow
-            Principal:
-              Service: sns.amazonaws.com
-            Resource:
-              Fn::GetAtt:
-                - InfraQueue969BB8E7
-                - Arn
-        Version: "2012-10-17"
-      Queues:
-        - Ref: InfraQueue969BB8E7
-    Metadata:
-      aws:cdk:path: InfraStack/InfraQueue/Policy/Resource
-  InfraQueueInfraStackInfraTopic7A7FAD83018E7200:
-    Type: AWS::SNS::Subscription
-    Properties:
-      Protocol: sqs
-      TopicArn:
-        Ref: InfraTopic44770A4E
-      Endpoint:
-        Fn::GetAtt:
-          - InfraQueue969BB8E7
-          - Arn
-    DependsOn:
-      - InfraQueuePolicyE88EDBDB
-    Metadata:
-      aws:cdk:path: InfraStack/InfraQueue/InfraStackInfraTopic7A7FAD83/Resource
-  InfraTopic44770A4E:
-    Type: AWS::SNS::Topic
-    Metadata:
-      aws:cdk:path: InfraStack/InfraTopic/Resource
   CDKMetadata:
     Type: AWS::CDK::Metadata
     Properties:
-      Analytics: v2:deflate64:H4sIAAAAAAAA/1WNQQrCMBBFz9J9OjYFwX0voK17aZMI09akZhJFQu5uk4DgZv7/jwfTwrGBphrfVAu51CtOEAY3ioXt6BboSRAuXnnFursuJd+zWVF8frDMyEjv/uAnEhY3h0Yn429fzYYi0VxiTLVXZLwV+UdntMRkRqaNVDDT4cVPwFvg1UyItfXa4UNBX/ILddgEa8EAAAA=
+      Analytics: v2:deflate64:H4sIAAAAAAAA/zPSMzXQM1BMLC/WTU7J1s3JTNKrDi5JTM7WcU7LC0otzi8tSk4FsZ3z81IySzLz82p18vJTUvWyivXLDC30DI30DBWzijMzdYtK80oyc1P1giA0AFUywPNZAAAA
     Metadata:
       aws:cdk:path: InfraStack/CDKMetadata/Default
     Condition: CDKMetadataAvailable

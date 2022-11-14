@@ -75,3 +75,52 @@ arn:aws:cloudformation:ap-northeast-1:994159167629:stack/InfraStack/a30b1d10-647
 
 $
 ```
+
+## Hello, CDK!
+
+Remove all resources from [lib/infra-stack.ts](lib/infra-stack.ts).
+
+```
+$ cdk synth | tee template.yaml
+$ cdk diff
+Stack InfraStack
+IAM Statement Changes
+┌───┬───────────────────────────┬────────┬─────────────────┬───────────────────────────┬───────────────────────────────────────────────────────────┐
+│   │ Resource                  │ Effect │ Action          │ Principal                 │ Condition                                                 │
+├───┼───────────────────────────┼────────┼─────────────────┼───────────────────────────┼───────────────────────────────────────────────────────────┤
+│ - │ ${InfraQueue969BB8E7.Arn} │ Allow  │ sqs:SendMessage │ Service:sns.amazonaws.com │ "ArnEquals": {                                            │
+│   │                           │        │                 │                           │   "aws:SourceArn": "${InfraTopic44770A4E}"                │
+│   │                           │        │                 │                           │ }                                                         │
+└───┴───────────────────────────┴────────┴─────────────────┴───────────────────────────┴───────────────────────────────────────────────────────────┘
+(NOTE: There may be security-related changes not in this list. See https://github.com/aws/aws-cdk/issues/1299)
+
+Resources
+[-] AWS::SQS::Queue InfraQueue969BB8E7 destroy
+[-] AWS::SQS::QueuePolicy InfraQueuePolicyE88EDBDB destroy
+[-] AWS::SNS::Subscription InfraQueueInfraStackInfraTopic7A7FAD83018E7200 destroy
+[-] AWS::SNS::Topic InfraTopic44770A4E destroy
+$ cdk deploy
+
+✨  Synthesis time: 9.23s
+
+InfraStack: building assets...
+
+[0%] start: Building 4d28fc616ca4951ff1ca46227abd6bf04a99273ad62afb2fa8b1d40534b31a36:current_account-current_region
+[100%] success: Built 4d28fc616ca4951ff1ca46227abd6bf04a99273ad62afb2fa8b1d40534b31a36:current_account-current_region
+
+InfraStack: assets built
+
+InfraStack: deploying...
+[0%] start: Publishing 4d28fc616ca4951ff1ca46227abd6bf04a99273ad62afb2fa8b1d40534b31a36:current_account-current_region
+[100%] success: Published 4d28fc616ca4951ff1ca46227abd6bf04a99273ad62afb2fa8b1d40534b31a36:current_account-current_region
+InfraStack: creating CloudFormation changeset...
+
+ ✅  InfraStack
+
+✨  Deployment time: 95.96s
+
+Stack ARN:
+arn:aws:cloudformation:ap-northeast-1:994159167629:stack/InfraStack/a30b1d10-6471-11ed-8e7c-0acdbcbbb597
+
+✨  Total time: 105.19s
+```
