@@ -361,3 +361,16 @@ Grant permission to read/write Hits table for HitCounterHandler, but another err
     ]
 }
 ```
+
+Grant HitCounterHandler permission to invoke the downstream function (HelloHandler).
+
+```console
+$ curl -si 'https://m6p81aq0m0.execute-api.ap-northeast-1.amazonaws.com/'
+HTTP/2 200 
+date: Tue, 15 Nov 2022 17:05:21 GMT
+content-type: text/plain
+content-length: 27
+apigw-requestid: bpwAajQXNjMEPRg=
+
+Good Morning! You've hit /
+```

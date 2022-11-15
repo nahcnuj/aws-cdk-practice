@@ -95,6 +95,18 @@ Resources:
                   - HelloHitCounterHits7AAEBF80
                   - Arn
               - Ref: AWS::NoValue
+          - Action: lambda:InvokeFunction
+            Effect: Allow
+            Resource:
+              - Fn::GetAtt:
+                  - HelloHandler2E4FBA4D
+                  - Arn
+              - Fn::Join:
+                  - ""
+                  - - Fn::GetAtt:
+                        - HelloHandler2E4FBA4D
+                        - Arn
+                    - :*
         Version: "2012-10-17"
       PolicyName: HelloHitCounterHitCounterHandlerServiceRoleDefaultPolicy1487A60A
       Roles:
