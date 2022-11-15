@@ -126,3 +126,9 @@ arn:aws:cloudformation:ap-northeast-1:994159167629:stack/InfraStack/a30b1d10-647
 ```
 
 Create `lambda/hello.js` (in `infra` directory)
+
+```
+$ cdk synth | tee template.yaml
+$ cdk diff
+$ cdk deploy
+```
