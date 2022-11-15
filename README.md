@@ -286,3 +286,48 @@ Hello, CDK! You've hit /
 $ curl -s 'https://m6p81aq0m0.execute-api.ap-northeast-1.amazonaws.com/hello'
 Hello, CDK! You've hit /hello
 ```
+
+## Writing Constructs
+
+Create lib/hitcounter.ts and lambda/hitcounter.js, and modify lib/infra-stack.ts.
+
+```console
+$ curl -si 'https://m6p81aq0m0.execute-api.ap-northeast-1.amazonaws.com/'
+HTTP/2 500
+date: Tue, 15 Nov 2022 16:43:53 GMT
+content-type: application/json
+content-length: 35
+apigw-requestid: bps3bj7atjMEP3w=
+
+{"message":"Internal Server Error"}
+```
+
+From CloudWatch Logs:
+
+```
+2022-11-15T16:43:53.032Z	46d324ec-613f-4d45-8622-551f985d0158	ERROR	Invoke Error
+{
+    "errorType": "AccessDeniedException",
+    "errorMessage": "User: arn:aws:sts::994159167629:assumed-role/InfraStack-HelloHitCounterHitCounterHandlerService-R2LN05SZLLRA/InfraStack-HelloHitCounterHitCounterHandlerDAEA7B3-PNDo0RR8Idee is not authorized to perform: dynamodb:UpdateItem on resource: arn:aws:dynamodb:ap-northeast-1:994159167629:table/InfraStack-HelloHitCounterHits7AAEBF80-79TNQBBTLGIK because no identity-based policy allows the dynamodb:UpdateItem action",
+    "code": "AccessDeniedException",
+    "message": "User: arn:aws:sts::994159167629:assumed-role/InfraStack-HelloHitCounterHitCounterHandlerService-R2LN05SZLLRA/InfraStack-HelloHitCounterHitCounterHandlerDAEA7B3-PNDo0RR8Idee is not authorized to perform: dynamodb:UpdateItem on resource: arn:aws:dynamodb:ap-northeast-1:994159167629:table/InfraStack-HelloHitCounterHits7AAEBF80-79TNQBBTLGIK because no identity-based policy allows the dynamodb:UpdateItem action",
+    "time": "2022-11-15T16:43:53.031Z",
+    "requestId": "EUD777G1VMCLC4VVSVR39B93LFVV4KQNSO5AEMVJF66Q9ASUAAJG",
+    "statusCode": 400,
+    "retryable": false,
+    "retryDelay": 45.796417170201934,
+    "stack": [
+        "AccessDeniedException: User: arn:aws:sts::994159167629:assumed-role/InfraStack-HelloHitCounterHitCounterHandlerService-R2LN05SZLLRA/InfraStack-HelloHitCounterHitCounterHandlerDAEA7B3-PNDo0RR8Idee is not authorized to perform: dynamodb:UpdateItem on resource: arn:aws:dynamodb:ap-northeast-1:994159167629:table/InfraStack-HelloHitCounterHits7AAEBF80-79TNQBBTLGIK because no identity-based policy allows the dynamodb:UpdateItem action",
+        "    at Request.extractError (/var/runtime/node_modules/aws-sdk/lib/protocol/json.js:52:27)",
+        "    at Request.callListeners (/var/runtime/node_modules/aws-sdk/lib/sequential_executor.js:106:20)",
+        "    at Request.emit (/var/runtime/node_modules/aws-sdk/lib/sequential_executor.js:78:10)",
+        "    at Request.emit (/var/runtime/node_modules/aws-sdk/lib/request.js:686:14)",
+        "    at Request.transition (/var/runtime/node_modules/aws-sdk/lib/request.js:22:10)",
+        "    at AcceptorStateMachine.runTo (/var/runtime/node_modules/aws-sdk/lib/state_machine.js:14:12)",
+        "    at /var/runtime/node_modules/aws-sdk/lib/state_machine.js:26:10",
+        "    at Request.<anonymous> (/var/runtime/node_modules/aws-sdk/lib/request.js:38:9)",
+        "    at Request.<anonymous> (/var/runtime/node_modules/aws-sdk/lib/request.js:688:12)",
+        "    at Request.callListeners (/var/runtime/node_modules/aws-sdk/lib/sequential_executor.js:116:18)"
+    ]
+}
+```

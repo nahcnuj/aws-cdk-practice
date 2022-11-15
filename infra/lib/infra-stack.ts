@@ -3,6 +3,7 @@ import { HttpLambdaIntegration } from '@aws-cdk/aws-apigatewayv2-integrations-al
 import { Stack, StackProps } from 'aws-cdk-lib';
 import * as Lambda from 'aws-cdk-lib/aws-lambda';
 import { Construct } from 'constructs';
+import { HitCounter } from './hitcounter';
 
 export class InfraStack extends Stack {
   constructor(scope: Construct, id: string, props?: StackProps) {
@@ -14,8 +15,12 @@ export class InfraStack extends Stack {
       handler: 'hello.handler',
     })
 
+    const helloWithCounter = new HitCounter(this, 'HelloHitCounter', {
+      downstream: helloLambda,
+    })
+
     new apigwv2.HttpApi(this, 'HelloHttpApi', {
-      defaultIntegration: new HttpLambdaIntegration('HelloLambdaIntegration', helloLambda),
+      defaultIntegration: new HttpLambdaIntegration('HelloLambdaIntegration', helloWithCounter.handler),
     })
   }
 }
