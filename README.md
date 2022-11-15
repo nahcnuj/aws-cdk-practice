@@ -275,3 +275,10 @@ START RequestId: 24b6acf0-b4ec-40b4-8da3-485706448852 Version: $LATEST
 END RequestId: 24b6acf0-b4ec-40b4-8da3-485706448852
 REPORT RequestId: 24b6acf0-b4ec-40b4-8da3-485706448852	Duration: 8.78 ms	Billed Duration: 9 ms	Memory Size: 128 MB	Max Memory Used: 57 MB	Init Duration: 142.93 ms
 ```
+
+Add an API Gateway of REST API endpoint to call HelloLambda.
+
+```
+$ curl -s https://bhbst1vd2k.execute-api.ap-northeast-1.amazonaws.com/prod
+Hello, CDK! You've hit /
+```
