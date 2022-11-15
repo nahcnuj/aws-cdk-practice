@@ -1,5 +1,6 @@
+import * as apigwv2 from '@aws-cdk/aws-apigatewayv2-alpha';
+import { HttpLambdaIntegration } from '@aws-cdk/aws-apigatewayv2-integrations-alpha';
 import { Stack, StackProps } from 'aws-cdk-lib';
-import * as apigw from 'aws-cdk-lib/aws-apigateway';
 import * as Lambda from 'aws-cdk-lib/aws-lambda';
 import { Construct } from 'constructs';
 
@@ -13,8 +14,8 @@ export class InfraStack extends Stack {
       handler: 'hello.handler',
     })
 
-    new apigw.LambdaRestApi(this, 'HelloRestApi', {
-      handler: helloLambda
+    new apigwv2.HttpApi(this, 'HelloHttpApi', {
+      defaultIntegration: new HttpLambdaIntegration('HelloLambdaIntegration', helloLambda),
     })
   }
 }

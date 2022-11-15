@@ -276,9 +276,13 @@ END RequestId: 24b6acf0-b4ec-40b4-8da3-485706448852
 REPORT RequestId: 24b6acf0-b4ec-40b4-8da3-485706448852	Duration: 8.78 ms	Billed Duration: 9 ms	Memory Size: 128 MB	Max Memory Used: 57 MB	Init Duration: 142.93 ms
 ```
 
-Add an API Gateway of REST API endpoint to call HelloLambda.
+Add an API Gateway of HTTP API endpoint to call HelloLambda.
+Unlike Workshop, use HTTP API instead of REST API.
+HTTP API constructor is experimental at the time of writing and is required installing additional packages, `@aws-cdk/aws-apigatewayv2-alpha` and `@aws-cdk/aws-apigatewayv2-integration-alpha`.
 
 ```
-$ curl -s https://bhbst1vd2k.execute-api.ap-northeast-1.amazonaws.com/prod
+$ curl -s 'https://m6p81aq0m0.execute-api.ap-northeast-1.amazonaws.com'
 Hello, CDK! You've hit /
+$ curl -s 'https://m6p81aq0m0.execute-api.ap-northeast-1.amazonaws.com/hello'
+Hello, CDK! You've hit /hello
 ```
