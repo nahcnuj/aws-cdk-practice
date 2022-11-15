@@ -17,7 +17,8 @@ export class HitCounter extends Construct {
       partitionKey: {
         name: 'path',
         type: DynamoDB.AttributeType.STRING,
-      }
+      },
+      billingMode: DynamoDB.BillingMode.PAY_PER_REQUEST,
     })
 
     this.handler = new Lambda.Function(this, 'HitCounterHandler', {
