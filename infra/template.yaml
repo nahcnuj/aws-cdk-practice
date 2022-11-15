@@ -71,6 +71,36 @@ Resources:
               - :iam::aws:policy/service-role/AWSLambdaBasicExecutionRole
     Metadata:
       aws:cdk:path: InfraStack/HelloHitCounter/HitCounterHandler/ServiceRole/Resource
+  HelloHitCounterHitCounterHandlerServiceRoleDefaultPolicy1487A60A:
+    Type: AWS::IAM::Policy
+    Properties:
+      PolicyDocument:
+        Statement:
+          - Action:
+              - dynamodb:BatchGetItem
+              - dynamodb:BatchWriteItem
+              - dynamodb:ConditionCheckItem
+              - dynamodb:DeleteItem
+              - dynamodb:DescribeTable
+              - dynamodb:GetItem
+              - dynamodb:GetRecords
+              - dynamodb:GetShardIterator
+              - dynamodb:PutItem
+              - dynamodb:Query
+              - dynamodb:Scan
+              - dynamodb:UpdateItem
+            Effect: Allow
+            Resource:
+              - Fn::GetAtt:
+                  - HelloHitCounterHits7AAEBF80
+                  - Arn
+              - Ref: AWS::NoValue
+        Version: "2012-10-17"
+      PolicyName: HelloHitCounterHitCounterHandlerServiceRoleDefaultPolicy1487A60A
+      Roles:
+        - Ref: HelloHitCounterHitCounterHandlerServiceRoleD45002B8
+    Metadata:
+      aws:cdk:path: InfraStack/HelloHitCounter/HitCounterHandler/ServiceRole/DefaultPolicy/Resource
   HelloHitCounterHitCounterHandlerDAEA7B37:
     Type: AWS::Lambda::Function
     Properties:
@@ -91,6 +121,7 @@ Resources:
       Handler: hitcounter.handler
       Runtime: nodejs16.x
     DependsOn:
+      - HelloHitCounterHitCounterHandlerServiceRoleDefaultPolicy1487A60A
       - HelloHitCounterHitCounterHandlerServiceRoleD45002B8
     Metadata:
       aws:cdk:path: InfraStack/HelloHitCounter/HitCounterHandler/Resource
@@ -166,7 +197,7 @@ Resources:
   CDKMetadata:
     Type: AWS::CDK::Metadata
     Properties:
-      Analytics: v2:deflate64:H4sIAAAAAAAA/02QQW+DMAyFfwv34EKrTTuurTRtt4rtXhnisRRIEDatqoj/vgRaidN7z471PmULLxn4LMEbp5Vu0taU4L8Fq0aF0dm32JUawX+MthLjrDr+2rU/0dAZ5pAmZbADX7iW4iLqpHh3RmYShn2UkOEwVg3JAZmUvlvsnA6NP1guZ7OZFPamRqEb3q9b8GG+701cf1mhesBne+FGmc8CcU3TpOaWGIytVUHsxqFacFb+6Kw2MiNnKbb9H0KWvD9+YBN1Xf944T9F+kgRdemNbg0U8xPEOk1w4c01f4X8DfLkwsakw2jFdATFov+McCEhfQEAAA==
+      Analytics: v2:deflate64:H4sIAAAAAAAA/01QwW6DMAz9Fu7BpZ027bi20rTdKrZ7ZZKMukCCiGmFIv59SWglTu892/F7zg5eC/BFhneXS9XkLVXgfxhlI0Lp7FvsKoXgP0cjmawRxz+z5ic9dORcULMg7MCXttWxkfBkW5JTmktsFu7ljM5pdrCPEDQcRtloPqDTQk0GO6tChF+slj2JzAJ7qpH1HafbDnyo73uK7W/Duh7wGae0I6dn4YRaz7NILlGQqUWpnR0HueRb8aM1ijjdUOTY9heEIvt4fMkm4tr+MeG/mPuYIuLiG9k6UNTPIMYqDVe3uW3fYPsO2+zqiPJhNEydhnLBf4LgUyaOAQAA
     Metadata:
       aws:cdk:path: InfraStack/CDKMetadata/Default
     Condition: CDKMetadataAvailable

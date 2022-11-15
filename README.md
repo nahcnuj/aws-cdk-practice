@@ -331,3 +331,33 @@ From CloudWatch Logs:
     ]
 }
 ```
+
+Grant permission to read/write Hits table for HitCounterHandler, but another error occurs.
+
+```
+2022-11-15T16:54:14.843Z	27df3969-0f9a-4383-b820-d5fe876c8166	ERROR	Invoke Error
+{
+    "errorType": "AccessDeniedException",
+    "errorMessage": "User: arn:aws:sts::994159167629:assumed-role/InfraStack-HelloHitCounterHitCounterHandlerService-R2LN05SZLLRA/InfraStack-HelloHitCounterHitCounterHandlerDAEA7B3-PNDo0RR8Idee is not authorized to perform: lambda:InvokeFunction on resource: arn:aws:lambda:ap-northeast-1:994159167629:function:InfraStack-HelloHandler2E4FBA4D-AN4GSEyXhCqn because no identity-based policy allows the lambda:InvokeFunction action",
+    "code": "AccessDeniedException",
+    "message": "User: arn:aws:sts::994159167629:assumed-role/InfraStack-HelloHitCounterHitCounterHandlerService-R2LN05SZLLRA/InfraStack-HelloHitCounterHitCounterHandlerDAEA7B3-PNDo0RR8Idee is not authorized to perform: lambda:InvokeFunction on resource: arn:aws:lambda:ap-northeast-1:994159167629:function:InfraStack-HelloHandler2E4FBA4D-AN4GSEyXhCqn because no identity-based policy allows the lambda:InvokeFunction action",
+    "time": "2022-11-15T16:54:14.843Z",
+    "requestId": "e3095261-23a2-4d1b-92c2-4d7dd8e564dd",
+    "statusCode": 403,
+    "retryable": false,
+    "retryDelay": 78.00721461811986,
+    "stack": [
+        "AccessDeniedException: User: arn:aws:sts::994159167629:assumed-role/InfraStack-HelloHitCounterHitCounterHandlerService-R2LN05SZLLRA/InfraStack-HelloHitCounterHitCounterHandlerDAEA7B3-PNDo0RR8Idee is not authorized to perform: lambda:InvokeFunction on resource: arn:aws:lambda:ap-northeast-1:994159167629:function:InfraStack-HelloHandler2E4FBA4D-AN4GSEyXhCqn because no identity-based policy allows the lambda:InvokeFunction action",
+        "    at Object.extractError (/var/runtime/node_modules/aws-sdk/lib/protocol/json.js:52:27)",
+        "    at Request.extractError (/var/runtime/node_modules/aws-sdk/lib/protocol/rest_json.js:49:8)",
+        "    at Request.callListeners (/var/runtime/node_modules/aws-sdk/lib/sequential_executor.js:106:20)",
+        "    at Request.emit (/var/runtime/node_modules/aws-sdk/lib/sequential_executor.js:78:10)",
+        "    at Request.emit (/var/runtime/node_modules/aws-sdk/lib/request.js:686:14)",
+        "    at Request.transition (/var/runtime/node_modules/aws-sdk/lib/request.js:22:10)",
+        "    at AcceptorStateMachine.runTo (/var/runtime/node_modules/aws-sdk/lib/state_machine.js:14:12)",
+        "    at /var/runtime/node_modules/aws-sdk/lib/state_machine.js:26:10",
+        "    at Request.<anonymous> (/var/runtime/node_modules/aws-sdk/lib/request.js:38:9)",
+        "    at Request.<anonymous> (/var/runtime/node_modules/aws-sdk/lib/request.js:688:12)"
+    ]
+}
+```
