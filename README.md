@@ -401,16 +401,3 @@ new LogGroup(this, "HelloHandlerLogGroup", {
 ```console
 $ cdk import
 ```
-
-```
-$ cdk diff
-Stack InfraStack
-Resources
-[~] AWS::DynamoDB::Table HelloHitCounter/Hits HelloHitCounterHits7AAEBF80
- ├─ [~] DeletionPolicy
- │   ├─ [-] Retain
- │   └─ [+] Delete
- └─ [~] UpdateReplacePolicy
-     ├─ [-] Retain
-     └─ [+] Delete
-```

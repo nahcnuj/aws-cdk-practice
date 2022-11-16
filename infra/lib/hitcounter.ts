@@ -23,7 +23,7 @@ export class HitCounter extends Construct {
         type: DynamoDB.AttributeType.STRING,
       },
       billingMode: DynamoDB.BillingMode.PAY_PER_REQUEST,
-      // removalPolicy: cdk.RemovalPolicy.DESTROY,
+      removalPolicy: RemovalPolicy.DESTROY,
     })
     this.table = table
 
@@ -38,7 +38,7 @@ export class HitCounter extends Construct {
     })
     new LogGroup(this, 'HitCounterHandlerLogGroup', {
       logGroupName: '/aws/lambda/InfraStack-HelloHitCounterHitCounterHandlerDAEA7B3-PNDo0RR8Idee',
-      retention: RetentionDays.INFINITE,
+      retention: RetentionDays.ONE_DAY,
       removalPolicy: RemovalPolicy.DESTROY,
     })
 

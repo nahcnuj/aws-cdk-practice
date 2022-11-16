@@ -41,6 +41,7 @@ Resources:
     Type: AWS::Logs::LogGroup
     Properties:
       LogGroupName: /aws/lambda/InfraStack-HelloHandler2E4FBA4D-AN4GSEyXhCqn
+      RetentionInDays: 1
     UpdateReplacePolicy: Delete
     DeletionPolicy: Delete
     Metadata:
@@ -55,8 +56,8 @@ Resources:
         - AttributeName: path
           AttributeType: S
       BillingMode: PAY_PER_REQUEST
-    UpdateReplacePolicy: Retain
-    DeletionPolicy: Retain
+    UpdateReplacePolicy: Delete
+    DeletionPolicy: Delete
     Metadata:
       aws:cdk:path: InfraStack/HelloHitCounter/Hits/Resource
   HelloHitCounterHitCounterHandlerServiceRoleD45002B8:
@@ -150,6 +151,7 @@ Resources:
     Type: AWS::Logs::LogGroup
     Properties:
       LogGroupName: /aws/lambda/InfraStack-HelloHitCounterHitCounterHandlerDAEA7B3-PNDo0RR8Idee
+      RetentionInDays: 1
     UpdateReplacePolicy: Delete
     DeletionPolicy: Delete
     Metadata:
@@ -158,6 +160,7 @@ Resources:
     Type: AWS::Logs::LogGroup
     Properties:
       LogGroupName: /aws/lambda/InfraStack-HitsTableViewerRenderedF8E19708-hSNdnEYCo0a6
+      RetentionInDays: 1
     UpdateReplacePolicy: Delete
     DeletionPolicy: Delete
     Metadata:

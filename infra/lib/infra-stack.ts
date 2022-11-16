@@ -18,7 +18,7 @@ export class InfraStack extends Stack {
     })
     new LogGroup(this, 'HelloHandlerLogGroup', {
       logGroupName: '/aws/lambda/InfraStack-HelloHandler2E4FBA4D-AN4GSEyXhCqn',
-      retention: RetentionDays.INFINITE,
+      retention: RetentionDays.ONE_DAY,
       removalPolicy: RemovalPolicy.DESTROY,
     })
 
@@ -27,7 +27,7 @@ export class InfraStack extends Stack {
     })
     new LogGroup(this, 'HelloWithCounterLogGroup', {
       logGroupName: '/aws/lambda/InfraStack-HitsTableViewerRenderedF8E19708-hSNdnEYCo0a6',
-      retention: RetentionDays.INFINITE,
+      retention: RetentionDays.ONE_DAY,
       removalPolicy: RemovalPolicy.DESTROY,
     })
 
