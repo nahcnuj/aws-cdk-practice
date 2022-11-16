@@ -21,6 +21,7 @@ export class HitCounter extends Construct {
         type: DynamoDB.AttributeType.STRING,
       },
       billingMode: DynamoDB.BillingMode.PAY_PER_REQUEST,
+      // removalPolicy: cdk.RemovalPolicy.DESTROY,
     })
     this.table = table
 

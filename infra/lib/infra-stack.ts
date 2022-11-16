@@ -2,6 +2,7 @@ import * as apigwv2 from '@aws-cdk/aws-apigatewayv2-alpha';
 import { HttpLambdaIntegration } from '@aws-cdk/aws-apigatewayv2-integrations-alpha';
 import { Stack, StackProps } from 'aws-cdk-lib';
 import * as Lambda from 'aws-cdk-lib/aws-lambda';
+import { LogGroup } from 'aws-cdk-lib/aws-logs';
 import { TableViewer } from 'cdk-dynamo-table-viewer';
 import { Construct } from 'constructs';
 import { HitCounter } from './hitcounter';
@@ -14,6 +15,9 @@ export class InfraStack extends Stack {
       runtime: Lambda.Runtime.NODEJS_16_X,
       code: Lambda.Code.fromAsset('lambda'),
       handler: 'hello.handler',
+    })
+    new LogGroup(this, 'HelloHandlerLogGroup', {
+      logGroupName: '/aws/lambda/InfraStack-HelloHandler2E4FBA4D-AN4GSEyXhCqn',
     })
 
     const helloWithCounter = new HitCounter(this, 'HelloHitCounter', {

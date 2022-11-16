@@ -366,7 +366,7 @@ Grant HitCounterHandler permission to invoke the downstream function (HelloHandl
 
 ```console
 $ curl -si 'https://m6p81aq0m0.execute-api.ap-northeast-1.amazonaws.com/'
-HTTP/2 200 
+HTTP/2 200
 date: Tue, 15 Nov 2022 17:05:21 GMT
 content-type: text/plain
 content-length: 27
@@ -383,3 +383,32 @@ $ npm install --save cdk-dynamo-table-viewer
 
 To sort the table by hits in descending order, let `sortBy` property `-hits` in TableViewer's props.
 The `-` sign means descending order.
+
+## Clean up
+
+### Import CloudWatch Logs' log group created automatically by Lambda
+
+Add a LogGroup with the existing log group name, created automatically by the Lambda function, in lib/infra-stack.ts:
+
+```js
+new LogGroup(this, "HelloHandlerLogGroup", {
+  logGroupName: "/aws/lambda/InfraStack-HelloHandler2E4FBA4D-AN4GSEyXhCqn",
+});
+```
+
+```console
+$ cdk import
+```
+
+```
+$ cdk diff
+Stack InfraStack
+Resources
+[~] AWS::DynamoDB::Table HelloHitCounter/Hits HelloHitCounterHits7AAEBF80
+ ├─ [~] DeletionPolicy
+ │   ├─ [-] Retain
+ │   └─ [+] Delete
+ └─ [~] UpdateReplacePolicy
+     ├─ [-] Retain
+     └─ [+] Delete
+```

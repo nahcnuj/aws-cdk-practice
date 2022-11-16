@@ -37,6 +37,15 @@ Resources:
       aws:asset:path: asset.e0d8573add3f52307c99d922fe49f9e4c65b3c8d7b87c892c0853455bdc11b4d
       aws:asset:is-bundled: false
       aws:asset:property: Code
+  HelloHandlerLogGroupE9B91DEF:
+    Type: AWS::Logs::LogGroup
+    Properties:
+      LogGroupName: /aws/lambda/InfraStack-HelloHandler2E4FBA4D-AN4GSEyXhCqn
+      RetentionInDays: 731
+    UpdateReplacePolicy: Retain
+    DeletionPolicy: Retain
+    Metadata:
+      aws:cdk:path: InfraStack/HelloHandlerLogGroup/Resource
   HelloHitCounterHits7AAEBF80:
     Type: AWS::DynamoDB::Table
     Properties:
@@ -468,7 +477,7 @@ Resources:
   CDKMetadata:
     Type: AWS::CDK::Metadata
     Properties:
-      Analytics: v2:deflate64:H4sIAAAAAAAA/1VR0U7DMAz8lr2nXjcE4pFtCIEEYiq8T15jumxtUjXuRhX130nSDnVPd3Z8J/uyhPsUXDrDi01yeUpKtQf3xZifhG/tXInVXiK4l1bnrIwWmx895VtqKmWtr3qhsAKXmZLCQ8StKVXexbnIemHvdmgtsYVVAF/Dus1PxGu0JGSnsTLSr/CN+8Enkl5grQpkumB3XoLz/VWtwvObZioavK6TmZajzJ9Q3MjAvcdTMrI8aq/0merSdBVpDt1JFU3+3YSfN22TU1x125jf7toZ3Qb+QXwwMrQG1vci3hpMlC7EVPTZct3yjdzzjdFSccw0TbCsDwjp7Gn8onnAaRzjhHtlrsM5AYccApsGFOohmF5oIwmOdn5ePMDiERazo1UqaVrNqiLIBvwDvuhpth4CAAA=
+      Analytics: v2:deflate64:H4sIAAAAAAAA/1VRy27DIBD8ltwxcVK16rFJqj6kVo3c3qONIQ6JDcgsSS3EvxewXTmnmR12FnZY0vucunwGV5OV7JzVYk/dN0J5JkHauRqaPQPqXqwsUShJNgc55VveNsKYUHkioKGuUDWPBwm3qhZll/oS88Tc7cAYjoauIoSarm155rgGw0mtKkPdh6peW2V19I3cE9ZJaBQLz/uBfX9HIp6AFhUgv0J3WVIX9JUW8fhdIq9aGJ9aKIvJFtarbmzhyrRmwQ0O3pE+c12rruESozqp0pD/aST0K9uWPK2xbdVvNyrDtJ5/cjwqFqWeeU9SDnGIkBWZmr4saos39sA3SjKBKe88g1ofgeazp+H75hGncQwd7g1Rx3Ui9jlENg0o1n0wnkjFOD2Z+WXxQBePdDE7GSGy1koUDadFj39nMEdTOgIAAA==
     Metadata:
       aws:cdk:path: InfraStack/CDKMetadata/Default
     Condition: CDKMetadataAvailable
