@@ -401,3 +401,14 @@ new LogGroup(this, "HelloHandlerLogGroup", {
 ```console
 $ cdk import
 ```
+
+Finally, set the DynamoDB table's removal policy to DESTROY, then destroy the stack:
+
+```console
+$ cdk destroy
+Are you sure you want to delete: InfraStack (y/n)? y
+InfraStack: destroying...
+
+ ✅  InfraStack: destroyed
+
+```
