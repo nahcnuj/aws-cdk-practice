@@ -2,7 +2,7 @@ import * as cdk from 'aws-cdk-lib';
 import { Template } from 'aws-cdk-lib/assertions';
 import * as Infra from '../lib/infra-stack';
 
-test('DynamoDB Table billing mode is on-demand', () => {
+test('An HTTP API Gateway should be created', () => {
   const app = new cdk.App();
   // WHEN
   const stack = new Infra.InfraStack(app, 'MyTestStack');
@@ -14,9 +14,4 @@ test('DynamoDB Table billing mode is on-demand', () => {
   template.hasResourceProperties('AWS::ApiGatewayV2::Api', {
     ProtocolType: 'HTTP',
   })
-
-  // https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-dynamodb-table.html
-  template.hasResourceProperties('AWS::DynamoDB::Table', {
-    BillingMode: cdk.aws_dynamodb.BillingMode.PAY_PER_REQUEST,
-  });
 });
