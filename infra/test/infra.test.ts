@@ -1,8 +1,8 @@
 import * as cdk from 'aws-cdk-lib';
-import { Template, Match } from 'aws-cdk-lib/assertions';
+import { Template } from 'aws-cdk-lib/assertions';
 import * as Infra from '../lib/infra-stack';
 
-test('SQS Queue and SNS Topic Created', () => {
+test('DynamoDB Table billing mode is on-demand', () => {
   const app = new cdk.App();
   // WHEN
   const stack = new Infra.InfraStack(app, 'MyTestStack');
@@ -10,8 +10,13 @@ test('SQS Queue and SNS Topic Created', () => {
 
   const template = Template.fromStack(stack);
 
-  template.hasResourceProperties('AWS::SQS::Queue', {
-    VisibilityTimeout: 300
+  // https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-apigatewayv2-api.html
+  template.hasResourceProperties('AWS::ApiGatewayV2::Api', {
+    ProtocolType: 'HTTP',
+  })
+
+  // https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-dynamodb-table.html
+  template.hasResourceProperties('AWS::DynamoDB::Table', {
+    BillingMode: cdk.aws_dynamodb.BillingMode.PAY_PER_REQUEST,
   });
-  template.resourceCountIs('AWS::SNS::Topic', 1);
 });
