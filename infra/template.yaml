@@ -264,7 +264,7 @@ Resources:
           TABLE_NAME:
             Ref: HelloHitCounterHits7AAEBF80
           TITLE: Hello Hits
-          SORT_BY: ""
+          SORT_BY: -hits
       Handler: index.handler
       Runtime: nodejs12.x
     DependsOn:

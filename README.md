@@ -380,3 +380,6 @@ Good Morning! You've hit /
 ```console
 $ npm install --save cdk-dynamo-table-viewer
 ```
+
+To sort the table by hits in descending order, let `sortBy` property `-hits` in TableViewer's props.
+The `-` sign means descending order.

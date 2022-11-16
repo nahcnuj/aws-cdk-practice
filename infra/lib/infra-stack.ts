@@ -27,6 +27,7 @@ export class InfraStack extends Stack {
     new TableViewer(this, 'HitsTableViewer', {
       title: 'Hello Hits',
       table: helloWithCounter.table,
+      sortBy: '-hits',
     })
   }
 }
