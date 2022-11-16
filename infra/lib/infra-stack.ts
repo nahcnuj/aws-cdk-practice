@@ -25,6 +25,11 @@ export class InfraStack extends Stack {
     const helloWithCounter = new HitCounter(this, 'HelloHitCounter', {
       downstream: helloLambda,
     })
+    new LogGroup(this, 'HelloWithCounterLogGroup', {
+      logGroupName: '/aws/lambda/InfraStack-HitsTableViewerRenderedF8E19708-hSNdnEYCo0a6',
+      retention: RetentionDays.INFINITE,
+      removalPolicy: RemovalPolicy.DESTROY,
+    })
 
     new apigwv2.HttpApi(this, 'HelloHttpApi', {
       defaultIntegration: new HttpLambdaIntegration('HelloLambdaIntegration', helloWithCounter.handler),

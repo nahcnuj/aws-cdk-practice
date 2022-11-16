@@ -146,6 +146,22 @@ Resources:
       aws:asset:path: asset.e0d8573add3f52307c99d922fe49f9e4c65b3c8d7b87c892c0853455bdc11b4d
       aws:asset:is-bundled: false
       aws:asset:property: Code
+  HelloHitCounterHitCounterHandlerLogGroup810D1BF8:
+    Type: AWS::Logs::LogGroup
+    Properties:
+      LogGroupName: /aws/lambda/InfraStack-HelloHitCounterHitCounterHandlerDAEA7B3-PNDo0RR8Idee
+    UpdateReplacePolicy: Delete
+    DeletionPolicy: Delete
+    Metadata:
+      aws:cdk:path: InfraStack/HelloHitCounter/HitCounterHandlerLogGroup/Resource
+  HelloWithCounterLogGroup8FC34BE7:
+    Type: AWS::Logs::LogGroup
+    Properties:
+      LogGroupName: /aws/lambda/InfraStack-HitsTableViewerRenderedF8E19708-hSNdnEYCo0a6
+    UpdateReplacePolicy: Delete
+    DeletionPolicy: Delete
+    Metadata:
+      aws:cdk:path: InfraStack/HelloWithCounterLogGroup/Resource
   HelloHttpApiACDFC6E2:
     Type: AWS::ApiGatewayV2::Api
     Properties:

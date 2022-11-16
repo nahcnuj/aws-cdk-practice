@@ -393,6 +393,8 @@ Add a LogGroup with the existing log group name, created automatically by the La
 ```js
 new LogGroup(this, "HelloHandlerLogGroup", {
   logGroupName: "/aws/lambda/InfraStack-HelloHandler2E4FBA4D-AN4GSEyXhCqn",
+  retention: RetentionDays.INFINITE,
+  removalPolicy: RemovalPolicy.DESTROY,
 });
 ```
 

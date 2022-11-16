@@ -1,5 +1,7 @@
+import { RemovalPolicy } from 'aws-cdk-lib';
 import * as DynamoDB from 'aws-cdk-lib/aws-dynamodb';
 import * as Lambda from 'aws-cdk-lib/aws-lambda';
+import { LogGroup, RetentionDays } from 'aws-cdk-lib/aws-logs';
 import { Construct } from 'constructs';
 
 export interface HitCounterProps {
@@ -33,6 +35,11 @@ export class HitCounter extends Construct {
         DOWNSTREAM_FUNCTION_NAME: props.downstream.functionName,
         HITS_TABLE_NAME: table.tableName,
       },
+    })
+    new LogGroup(this, 'HitCounterHandlerLogGroup', {
+      logGroupName: '/aws/lambda/InfraStack-HelloHitCounterHitCounterHandlerDAEA7B3-PNDo0RR8Idee',
+      retention: RetentionDays.INFINITE,
+      removalPolicy: RemovalPolicy.DESTROY,
     })
 
     table.grantReadWriteData(this.handler)
