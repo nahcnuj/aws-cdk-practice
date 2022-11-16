@@ -204,13 +204,288 @@ Resources:
       AutoDeploy: true
     Metadata:
       aws:cdk:path: InfraStack/HelloHttpApi/DefaultStage/Resource
+  HitsTableViewerRenderedServiceRole6B5EC400:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Statement:
+          - Action: sts:AssumeRole
+            Effect: Allow
+            Principal:
+              Service: lambda.amazonaws.com
+        Version: "2012-10-17"
+      ManagedPolicyArns:
+        - Fn::Join:
+            - ""
+            - - "arn:"
+              - Ref: AWS::Partition
+              - :iam::aws:policy/service-role/AWSLambdaBasicExecutionRole
+    Metadata:
+      aws:cdk:path: InfraStack/HitsTableViewer/Rendered/ServiceRole/Resource
+  HitsTableViewerRenderedServiceRoleDefaultPolicy81D20395:
+    Type: AWS::IAM::Policy
+    Properties:
+      PolicyDocument:
+        Statement:
+          - Action:
+              - dynamodb:BatchGetItem
+              - dynamodb:ConditionCheckItem
+              - dynamodb:DescribeTable
+              - dynamodb:GetItem
+              - dynamodb:GetRecords
+              - dynamodb:GetShardIterator
+              - dynamodb:Query
+              - dynamodb:Scan
+            Effect: Allow
+            Resource:
+              - Fn::GetAtt:
+                  - HelloHitCounterHits7AAEBF80
+                  - Arn
+              - Ref: AWS::NoValue
+        Version: "2012-10-17"
+      PolicyName: HitsTableViewerRenderedServiceRoleDefaultPolicy81D20395
+      Roles:
+        - Ref: HitsTableViewerRenderedServiceRole6B5EC400
+    Metadata:
+      aws:cdk:path: InfraStack/HitsTableViewer/Rendered/ServiceRole/DefaultPolicy/Resource
+  HitsTableViewerRenderedF8E19708:
+    Type: AWS::Lambda::Function
+    Properties:
+      Code:
+        S3Bucket:
+          Fn::Sub: cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}
+        S3Key: e2d9f4c587faa240510bb9cd1c0afe3112663d6336529432a852f5e452cf6456.zip
+      Role:
+        Fn::GetAtt:
+          - HitsTableViewerRenderedServiceRole6B5EC400
+          - Arn
+      Environment:
+        Variables:
+          TABLE_NAME:
+            Ref: HelloHitCounterHits7AAEBF80
+          TITLE: Hello Hits
+          SORT_BY: ""
+      Handler: index.handler
+      Runtime: nodejs12.x
+    DependsOn:
+      - HitsTableViewerRenderedServiceRoleDefaultPolicy81D20395
+      - HitsTableViewerRenderedServiceRole6B5EC400
+    Metadata:
+      aws:cdk:path: InfraStack/HitsTableViewer/Rendered/Resource
+      aws:asset:path: asset.e2d9f4c587faa240510bb9cd1c0afe3112663d6336529432a852f5e452cf6456
+      aws:asset:is-bundled: false
+      aws:asset:property: Code
+  HitsTableViewerViewerEndpoint06F466F7:
+    Type: AWS::ApiGateway::RestApi
+    Properties:
+      Name: ViewerEndpoint
+    Metadata:
+      aws:cdk:path: InfraStack/HitsTableViewer/ViewerEndpoint/Resource
+  HitsTableViewerViewerEndpointDeployment277DB68755be1564d371c2c87b7ecd588a2fd0e6:
+    Type: AWS::ApiGateway::Deployment
+    Properties:
+      RestApiId:
+        Ref: HitsTableViewerViewerEndpoint06F466F7
+      Description: Automatically created by the RestApi construct
+    DependsOn:
+      - HitsTableViewerViewerEndpointproxyANY69F4B24F
+      - HitsTableViewerViewerEndpointproxyAE0F24D0
+      - HitsTableViewerViewerEndpointANY5F7F52BF
+    Metadata:
+      aws:cdk:path: InfraStack/HitsTableViewer/ViewerEndpoint/Deployment/Resource
+  HitsTableViewerViewerEndpointDeploymentStageprod04FE0CDC:
+    Type: AWS::ApiGateway::Stage
+    Properties:
+      RestApiId:
+        Ref: HitsTableViewerViewerEndpoint06F466F7
+      DeploymentId:
+        Ref: HitsTableViewerViewerEndpointDeployment277DB68755be1564d371c2c87b7ecd588a2fd0e6
+      StageName: prod
+    Metadata:
+      aws:cdk:path: InfraStack/HitsTableViewer/ViewerEndpoint/DeploymentStage.prod/Resource
+  HitsTableViewerViewerEndpointproxyAE0F24D0:
+    Type: AWS::ApiGateway::Resource
+    Properties:
+      ParentId:
+        Fn::GetAtt:
+          - HitsTableViewerViewerEndpoint06F466F7
+          - RootResourceId
+      PathPart: "{proxy+}"
+      RestApiId:
+        Ref: HitsTableViewerViewerEndpoint06F466F7
+    Metadata:
+      aws:cdk:path: InfraStack/HitsTableViewer/ViewerEndpoint/Default/{proxy+}/Resource
+  HitsTableViewerViewerEndpointproxyANYApiPermissionInfraStackHitsTableViewerViewerEndpointBE8B266DANYproxy323B3CAD:
+    Type: AWS::Lambda::Permission
+    Properties:
+      Action: lambda:InvokeFunction
+      FunctionName:
+        Fn::GetAtt:
+          - HitsTableViewerRenderedF8E19708
+          - Arn
+      Principal: apigateway.amazonaws.com
+      SourceArn:
+        Fn::Join:
+          - ""
+          - - "arn:"
+            - Ref: AWS::Partition
+            - ":execute-api:"
+            - Ref: AWS::Region
+            - ":"
+            - Ref: AWS::AccountId
+            - ":"
+            - Ref: HitsTableViewerViewerEndpoint06F466F7
+            - /
+            - Ref: HitsTableViewerViewerEndpointDeploymentStageprod04FE0CDC
+            - /*/*
+    Metadata:
+      aws:cdk:path: InfraStack/HitsTableViewer/ViewerEndpoint/Default/{proxy+}/ANY/ApiPermission.InfraStackHitsTableViewerViewerEndpointBE8B266D.ANY..{proxy+}
+  HitsTableViewerViewerEndpointproxyANYApiPermissionTestInfraStackHitsTableViewerViewerEndpointBE8B266DANYproxyAC3EA9EB:
+    Type: AWS::Lambda::Permission
+    Properties:
+      Action: lambda:InvokeFunction
+      FunctionName:
+        Fn::GetAtt:
+          - HitsTableViewerRenderedF8E19708
+          - Arn
+      Principal: apigateway.amazonaws.com
+      SourceArn:
+        Fn::Join:
+          - ""
+          - - "arn:"
+            - Ref: AWS::Partition
+            - ":execute-api:"
+            - Ref: AWS::Region
+            - ":"
+            - Ref: AWS::AccountId
+            - ":"
+            - Ref: HitsTableViewerViewerEndpoint06F466F7
+            - /test-invoke-stage/*/*
+    Metadata:
+      aws:cdk:path: InfraStack/HitsTableViewer/ViewerEndpoint/Default/{proxy+}/ANY/ApiPermission.Test.InfraStackHitsTableViewerViewerEndpointBE8B266D.ANY..{proxy+}
+  HitsTableViewerViewerEndpointproxyANY69F4B24F:
+    Type: AWS::ApiGateway::Method
+    Properties:
+      HttpMethod: ANY
+      ResourceId:
+        Ref: HitsTableViewerViewerEndpointproxyAE0F24D0
+      RestApiId:
+        Ref: HitsTableViewerViewerEndpoint06F466F7
+      AuthorizationType: NONE
+      Integration:
+        IntegrationHttpMethod: POST
+        Type: AWS_PROXY
+        Uri:
+          Fn::Join:
+            - ""
+            - - "arn:"
+              - Ref: AWS::Partition
+              - ":apigateway:"
+              - Ref: AWS::Region
+              - :lambda:path/2015-03-31/functions/
+              - Fn::GetAtt:
+                  - HitsTableViewerRenderedF8E19708
+                  - Arn
+              - /invocations
+    Metadata:
+      aws:cdk:path: InfraStack/HitsTableViewer/ViewerEndpoint/Default/{proxy+}/ANY/Resource
+  HitsTableViewerViewerEndpointANYApiPermissionInfraStackHitsTableViewerViewerEndpointBE8B266DANYE58A41E6:
+    Type: AWS::Lambda::Permission
+    Properties:
+      Action: lambda:InvokeFunction
+      FunctionName:
+        Fn::GetAtt:
+          - HitsTableViewerRenderedF8E19708
+          - Arn
+      Principal: apigateway.amazonaws.com
+      SourceArn:
+        Fn::Join:
+          - ""
+          - - "arn:"
+            - Ref: AWS::Partition
+            - ":execute-api:"
+            - Ref: AWS::Region
+            - ":"
+            - Ref: AWS::AccountId
+            - ":"
+            - Ref: HitsTableViewerViewerEndpoint06F466F7
+            - /
+            - Ref: HitsTableViewerViewerEndpointDeploymentStageprod04FE0CDC
+            - /*/
+    Metadata:
+      aws:cdk:path: InfraStack/HitsTableViewer/ViewerEndpoint/Default/ANY/ApiPermission.InfraStackHitsTableViewerViewerEndpointBE8B266D.ANY..
+  HitsTableViewerViewerEndpointANYApiPermissionTestInfraStackHitsTableViewerViewerEndpointBE8B266DANY53AFB569:
+    Type: AWS::Lambda::Permission
+    Properties:
+      Action: lambda:InvokeFunction
+      FunctionName:
+        Fn::GetAtt:
+          - HitsTableViewerRenderedF8E19708
+          - Arn
+      Principal: apigateway.amazonaws.com
+      SourceArn:
+        Fn::Join:
+          - ""
+          - - "arn:"
+            - Ref: AWS::Partition
+            - ":execute-api:"
+            - Ref: AWS::Region
+            - ":"
+            - Ref: AWS::AccountId
+            - ":"
+            - Ref: HitsTableViewerViewerEndpoint06F466F7
+            - /test-invoke-stage/*/
+    Metadata:
+      aws:cdk:path: InfraStack/HitsTableViewer/ViewerEndpoint/Default/ANY/ApiPermission.Test.InfraStackHitsTableViewerViewerEndpointBE8B266D.ANY..
+  HitsTableViewerViewerEndpointANY5F7F52BF:
+    Type: AWS::ApiGateway::Method
+    Properties:
+      HttpMethod: ANY
+      ResourceId:
+        Fn::GetAtt:
+          - HitsTableViewerViewerEndpoint06F466F7
+          - RootResourceId
+      RestApiId:
+        Ref: HitsTableViewerViewerEndpoint06F466F7
+      AuthorizationType: NONE
+      Integration:
+        IntegrationHttpMethod: POST
+        Type: AWS_PROXY
+        Uri:
+          Fn::Join:
+            - ""
+            - - "arn:"
+              - Ref: AWS::Partition
+              - ":apigateway:"
+              - Ref: AWS::Region
+              - :lambda:path/2015-03-31/functions/
+              - Fn::GetAtt:
+                  - HitsTableViewerRenderedF8E19708
+                  - Arn
+              - /invocations
+    Metadata:
+      aws:cdk:path: InfraStack/HitsTableViewer/ViewerEndpoint/Default/ANY/Resource
   CDKMetadata:
     Type: AWS::CDK::Metadata
     Properties:
-      Analytics: v2:deflate64:H4sIAAAAAAAA/01QwW6DMAz9Fu7BpZ027bi20rTdKrZ7ZZKMukCCiGmFIv59SWglTu892/F7zg5eC/BFhneXS9XkLVXgfxhlI0Lp7FvsKoXgP0cjmawRxz+z5ic9dORcULMg7MCXttWxkfBkW5JTmktsFu7ljM5pdrCPEDQcRtloPqDTQk0GO6tChF+slj2JzAJ7qpH1HafbDnyo73uK7W/Duh7wGae0I6dn4YRaz7NILlGQqUWpnR0HueRb8aM1ijjdUOTY9heEIvt4fMkm4tr+MeG/mPuYIuLiG9k6UNTPIMYqDVe3uW3fYPsO2+zqiPJhNEydhnLBf4LgUyaOAQAA
+      Analytics: v2:deflate64:H4sIAAAAAAAA/1VR0U7DMAz8lr2nXjcE4pFtCIEEYiq8T15jumxtUjXuRhX130nSDnVPd3Z8J/uyhPsUXDrDi01yeUpKtQf3xZifhG/tXInVXiK4l1bnrIwWmx895VtqKmWtr3qhsAKXmZLCQ8StKVXexbnIemHvdmgtsYVVAF/Dus1PxGu0JGSnsTLSr/CN+8Enkl5grQpkumB3XoLz/VWtwvObZioavK6TmZajzJ9Q3MjAvcdTMrI8aq/0merSdBVpDt1JFU3+3YSfN22TU1x125jf7toZ3Qb+QXwwMrQG1vci3hpMlC7EVPTZct3yjdzzjdFSccw0TbCsDwjp7Gn8onnAaRzjhHtlrsM5AYccApsGFOohmF5oIwmOdn5ePMDiERazo1UqaVrNqiLIBvwDvuhpth4CAAA=
     Metadata:
       aws:cdk:path: InfraStack/CDKMetadata/Default
     Condition: CDKMetadataAvailable
+Outputs:
+  HitsTableViewerViewerEndpointFAEDD2CB:
+    Value:
+      Fn::Join:
+        - ""
+        - - https://
+          - Ref: HitsTableViewerViewerEndpoint06F466F7
+          - .execute-api.
+          - Ref: AWS::Region
+          - "."
+          - Ref: AWS::URLSuffix
+          - /
+          - Ref: HitsTableViewerViewerEndpointDeploymentStageprod04FE0CDC
+          - /
 Conditions:
   CDKMetadataAvailable:
     Fn::Or:

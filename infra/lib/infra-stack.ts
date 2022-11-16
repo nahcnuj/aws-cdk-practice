@@ -2,6 +2,7 @@ import * as apigwv2 from '@aws-cdk/aws-apigatewayv2-alpha';
 import { HttpLambdaIntegration } from '@aws-cdk/aws-apigatewayv2-integrations-alpha';
 import { Stack, StackProps } from 'aws-cdk-lib';
 import * as Lambda from 'aws-cdk-lib/aws-lambda';
+import { TableViewer } from 'cdk-dynamo-table-viewer';
 import { Construct } from 'constructs';
 import { HitCounter } from './hitcounter';
 
@@ -21,6 +22,11 @@ export class InfraStack extends Stack {
 
     new apigwv2.HttpApi(this, 'HelloHttpApi', {
       defaultIntegration: new HttpLambdaIntegration('HelloLambdaIntegration', helloWithCounter.handler),
+    })
+
+    new TableViewer(this, 'HitsTableViewer', {
+      title: 'Hello Hits',
+      table: helloWithCounter.table,
     })
   }
 }

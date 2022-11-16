@@ -10,6 +10,8 @@ export class HitCounter extends Construct {
   // to be able to access from infra-stack
   public readonly handler: Lambda.Function
 
+  public readonly table: DynamoDB.Table
+
   constructor(scope: Construct, id: string, props: HitCounterProps) {
     super(scope, id)
     
@@ -20,6 +22,7 @@ export class HitCounter extends Construct {
       },
       billingMode: DynamoDB.BillingMode.PAY_PER_REQUEST,
     })
+    this.table = table
 
     this.handler = new Lambda.Function(this, 'HitCounterHandler', {
       runtime: Lambda.Runtime.NODEJS_16_X,

@@ -374,3 +374,9 @@ apigw-requestid: bpwAajQXNjMEPRg=
 
 Good Morning! You've hit /
 ```
+
+## Using construct libraries
+
+```console
+$ npm install --save cdk-dynamo-table-viewer
+```
