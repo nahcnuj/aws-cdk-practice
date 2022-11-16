@@ -41,9 +41,8 @@ Resources:
     Type: AWS::Logs::LogGroup
     Properties:
       LogGroupName: /aws/lambda/InfraStack-HelloHandler2E4FBA4D-AN4GSEyXhCqn
-      RetentionInDays: 731
-    UpdateReplacePolicy: Retain
-    DeletionPolicy: Retain
+    UpdateReplacePolicy: Delete
+    DeletionPolicy: Delete
     Metadata:
       aws:cdk:path: InfraStack/HelloHandlerLogGroup/Resource
   HelloHitCounterHits7AAEBF80:
